@@ -188,7 +188,7 @@ nav {
 .hero-backCard-img {
   position: absolute;
   width: 56%;
-  top: -40px;
+  top: 5px;
   right: 5%;
   opacity: 0.6;
 }
@@ -196,8 +196,8 @@ nav {
 .hero-frontCard-img {
   position: absolute;
   width: 56%;
-  top: 0;
-  right: 0;
+  top: 25px;
+  right: -20px;
 }
 
 /* ------------------------------ */
