@@ -32,7 +32,7 @@ body {
   color: #ddd;
   border: none;
   background-color: #151515;
-  background-image: url("../img/Icons/btn-pink-bg.svg");
+  background-image: url("../img/icons/btn-pink-bg.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center left;
@@ -417,8 +417,8 @@ nav {
 /* ------------------------------ */
 
 .section-cta {
-  background-image: url("../img/Photos/Rectangle6774.png"),
-    url("../img/Photos/Rectangle6773.png");
+  background-image: url("../img/photos/rectangle6774.png"),
+    url("../img/photos/Rectangle6773.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -428,7 +428,7 @@ nav {
 }
 
 .section-cta-main {
-  background-image: url("../img/Photos/Diamond-left.png");
+  background-image: url("../img/photos/diamond-left.png");
   background-repeat: no-repeat;
   background-size: 40% 100%;
   background-position: center right;
