@@ -1,3 +1,57 @@
+/* Responsive adjustments for new sections */
+
+@media (max-width: 992px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-table {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .commitment-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .testimonial-item {
+    flex: 0 0 90%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-textbox h1 {
+    font-size: 38px;
+  }
+
+  .services-head h2,
+  .card-choices h2,
+  .testimonials-head h2,
+  .cta h2,
+  .about-head h2,
+  .solutions-head h2,
+  .pricing-head h2,
+  .why-head h2,
+  .commitments-head h2 {
+    font-size: 34px;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .commitment-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ------------------------------ */
 /* -------- BELOW 1000px -------- */
 /* ------------------------------ */
