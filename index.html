@@ -8,6 +8,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./css/style.css">
   <script>
     tailwind.config = {
       theme: {
@@ -19,7 +20,7 @@
             'luxe-dark-blue': '#1e3a8a',
             'brand-primary': '#4f46e5',
             'brand-accent': '#06b6d4',
-            'brand-purple': '#7c3aed',
+            'brand-purple': '#ba28ba',
             'brand-dark': '#0f172a'
           },
           fontFamily: {
@@ -350,9 +351,9 @@
       </path>
       <defs>
         <linearGradient id="grad1" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0%" stop-color="#0ea5e9" />
-          <stop offset="50%" stop-color="#6366f1" />
-          <stop offset="100%" stop-color="#7c3aed" />
+          <stop offset="0%" stop-color="#ba28ba" />
+          <stop offset="50%" stop-color="#ba28ba" />
+          <stop offset="100%" stop-color="#ba28ba" />
         </linearGradient>
       </defs>
     </svg>
@@ -362,9 +363,9 @@
       </path>
       <defs>
         <linearGradient id="grad2" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0%" stop-color="#7c3aed" />
-          <stop offset="50%" stop-color="#06b6d4" />
-          <stop offset="100%" stop-color="#4f46e5" />
+          <stop offset="0%" stop-color="#ba28ba" />
+          <stop offset="50%" stop-color="#ba28ba" />
+          <stop offset="100%" stop-color="#ba28ba" />
         </linearGradient>
       </defs>
     </svg>
@@ -374,9 +375,9 @@
       </path>
       <defs>
         <linearGradient id="grad3" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0%" stop-color="#4f46e5" />
-          <stop offset="50%" stop-color="#0ea5e9" />
-          <stop offset="100%" stop-color="#7c3aed" />
+          <stop offset="0%" stop-color="#fd4ced" />
+          <stop offset="50%" stop-color="#fd4ced" />
+          <stop offset="100%" stop-color="#fd4ced" />
         </linearGradient>
       </defs>
     </svg>
@@ -915,8 +916,8 @@
 
   <!-- Call-to-Action Footer -->
   <section class="relative py-16 overflow-hidden">
-    <div class="absolute inset-0 animated-gradient"></div>
-    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="absolute inset-0 bg-[#d281ed]"></div>
+    <!-- <div class="absolute inset-0 bg-black/30"></div> -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
       <div class="space-y-8">
         <h2 class="text-4xl font-elegant font-bold text-white">Đừng để áp lực tài chính làm bạn lo
@@ -1018,10 +1019,41 @@
   </footer>
 
   <!-- Floating Zalo Contact Button -->
-  <a href="https://zalo.me/0776244963" target="_blank" rel="noopener" aria-label="Liên hệ Zalo"
-    class="fixed bottom-6 right-6 z-50 rounded-full shadow-lg elevate">
-    <img src="img/photos/zalo-color.png" alt="Zalo" class="w-14 h-14">
-  </a>
+  <div class="float-actions">
+    <div class="float-item">
+      <a href="https://zalo.me/0776244963" target="_blank" rel="noopener noreferrer" tabindex="0"
+        aria-label="Liên hệ qua Zalo">
+        <span class="ring-ping ring-ping--sky"></span>
+        <div class="tooltip">Zalo Chat</div>
+        <div class="ripple-cover animate-ripple-1"></div>
+        <div class="ripple-cover animate-ripple-2"></div>
+        <div class="ripple-cover animate-ripple-3"></div>
+        <div class="circle-48 animate-wiggle">
+          <img src="./img/photos/zalo-color.png" alt="Zalo" />
+        </div>
+      </a>
+    </div>
+
+    <div class="float-item">
+      <a href="tel:0776952201" tabindex="0" aria-label="Gọi số điện thoại: 0776952201">
+        <span class="ring-ping"></span>
+        <div class="tooltip"
+          style="background: linear-gradient(90deg, #2563eb, #1e40af); font-weight: 700;">
+          0776952201</div>
+        <div class="ripple-cover animate-ripple-1"></div>
+        <div class="ripple-cover animate-ripple-2"></div>
+        <div class="ripple-cover animate-ripple-3"></div>
+        <div class="circle-48 phone-circle animate-wiggle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+            class="icon-24" style="color: #fff;">
+            <path fill-rule="evenodd"
+              d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
+              clip-rule="evenodd" />
+          </svg>
+        </div>
+      </a>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>
