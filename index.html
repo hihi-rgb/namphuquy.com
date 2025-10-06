@@ -9,6 +9,7 @@
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
 
   <!-- SEO Meta Tags -->
   <meta name="description"
@@ -60,6 +61,59 @@
       "addressCountry": "VN"
     }]
   }
+  </script>
+  <script>
+    // Testimonials slider with index-based navigation and pinned footer
+    document.addEventListener('DOMContentLoaded', () => {
+      const scroller = document.getElementById('testimonialsScroller');
+      const prev = document.getElementById('testimonialsPrev');
+      const next = document.getElementById('testimonialsNext');
+      if (!scroller || !prev || !next) return;
+
+      const cards = Array.from(scroller.children);
+      // Ensure each card keeps footer at bottom regardless of text length
+      cards.forEach(card => {
+        card.classList.add('flex', 'flex-col');
+        if (!card.className.includes('min-h-')) {
+          card.classList.add('min-h-[280px]');
+        }
+        const footer = card.querySelector('.flex.items-center:last-child');
+        if (footer) footer.classList.add('mt-auto');
+      });
+
+      // Track the currently visible card index
+      let currentIndex = 0;
+
+      const scrollToIndex = (index) => {
+        const clamped = Math.max(0, Math.min(index, cards.length - 1));
+        currentIndex = clamped;
+        cards[clamped]?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+      };
+
+      // Update index based on current scroll position (for manual swipes)
+      const updateIndexFromScroll = () => {
+        const left = scroller.scrollLeft;
+        let bestIdx = 0;
+        let bestDist = Infinity;
+        cards.forEach((card, idx) => {
+          const dist = Math.abs(card.offsetLeft - left);
+          if (dist < bestDist) {
+            bestDist = dist;
+            bestIdx = idx;
+          }
+        });
+        currentIndex = bestIdx;
+      };
+
+      scroller.addEventListener('scroll', () => {
+        // Debounced-ish index update
+        window.clearTimeout(scroller._idxTimer);
+        scroller._idxTimer = window.setTimeout(updateIndexFromScroll, 80);
+      }, { passive: true });
+
+      prev.addEventListener('click', () => scrollToIndex(currentIndex - 1));
+      next.addEventListener('click', () => scrollToIndex(currentIndex + 1));
+    });
   </script>
   <script>
     tailwind.config = {
@@ -392,6 +446,7 @@
       will-change: transform;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 </head>
 
 <body class="font-modern text-gray-800 page-bg">
@@ -435,12 +490,12 @@
     </svg>
   </div>
   <!-- Navigation -->
-  <nav class="fixed w-full z-50 bg-white/30 backdrop-blur-xl border-b border-white/30 glass">
+  <nav class="fixed w-full z-50 bg-white/25 backdrop-blur-xl border-b border-white/30 glass">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <div class="flex-shrink-0">
           <h1 class="text-2xl font-elegant font-bold text-luxe-blue">
-            <img src="./img/photos/logo.png" alt="Nam Phú Quý" class="w-40 h-14">
+            <img src="./img/photos/logo.png" alt="Nam Phú Quý" class="w-52 h-20">
           </h1>
         </div>
         <div class="hidden md:block">
@@ -495,10 +550,10 @@
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="space-y-8 reveal-up reveal-stagger parallax-up" data-aos="fade-up">
           <h1 class="text-4xl lg:text-5xl font-elegant font-bold text-gray-900 leading-tight">
-            <span class="gradient-text">Nam Phú Quý</span> – Giải pháp đáo rút tín dụng nhanh & an
-            toàn
+            <span class="gradient-text">NAM PHÚ QUÝ</span> - Giải pháp thanh toán thẻ tín dụng uy
+            tín, nhanh chóng & bảo mật
           </h1>
-          <p class="text-lg text-gray-600 leading-relaxed">
+          <p class="text-lg text-gray-700 leading-relaxed">
             “Giúp bạn xử lý tài chính kịp thời, giữ vững uy tín, tín dụng và tránh nợ xấu”
           </p>
           <p class="text-base text-gray-700">CÓ VĂN PHÒNG HỖ TRỢ TẠI TP.HCM VÀ BÌNH DƯƠNG</p>
@@ -523,6 +578,7 @@
 
   <!-- Partner Bank Logos Strip -->
   <section class="py-6">
+    <h2 class="text-center text-2xl font-bold text-gray-600 p-7">LÀ ĐỐI TÁC CỦA CÁC NGÂN HÀNG</h2>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 items-center gap-6 opacity-80">
         <img src="./img/photos/logo-vietcombank.png" alt="Vietcombank"
@@ -560,45 +616,49 @@
             hiểu rằng, trong các vấn đề tài chính, thời gian và sự minh bạch là yếu tố quan trọng
             nhất, vì vậy mọi dịch vụ đều được xử lý nhanh chóng – an toàn – rõ ràng.”
           </p>
-          <div class="space-y-4">
+          <div class="space-y-4 text-center">
             <p class="text-base text-gray-600 leading-relaxed">Chúng tôi cam kết mang đến cho khách
               hàng:</p>
-            <div class="flex items-start space-x-4">
+            <div
+              class="flex flex-col items-center space-y-4 sm:space-y-0 sm:flex-row sm:items-start sm:space-x-4">
               <div
-                class="w-12 h-12 bg-luxe-soft-blue rounded-full flex items-center justify-center icon-pulse">
+                class="w-12 h-12 bg-luxe-soft-blue rounded-full flex items-center justify-center icon-pulse mx-auto sm:mx-0">
                 <i class="fas fa-users text-luxe-blue text-xl"></i>
               </div>
-              <div>
+              <div class="text-center sm:text-left">
                 <h4 class="font-semibold text-gray-900">Giải pháp linh hoạt</h4>
                 <p class="text-gray-600">Phù hợp với từng nhu cầu và tình huống thực tế</p>
               </div>
             </div>
-            <div class="flex items-start space-x-4">
+            <div
+              class="flex flex-col items-center space-y-4 sm:space-y-0 sm:flex-row sm:items-start sm:space-x-4">
               <div
-                class="w-12 h-12 bg-luxe-soft-blue rounded-full flex items-center justify-center icon-pulse">
+                class="w-12 h-12 bg-luxe-soft-blue rounded-full flex items-center justify-center icon-pulse mx-auto sm:mx-0">
                 <i class="fas fa-chart-line text-luxe-blue text-xl"></i>
               </div>
-              <div>
+              <div class="text-center sm:text-left">
                 <h4 class="font-semibold text-gray-900">Chi phí rõ ràng – không phát sinh</h4>
                 <p class="text-gray-600">Không có bất kỳ khoản phí ẩn nào</p>
               </div>
             </div>
-            <div class="flex items-start space-x-4">
+            <div
+              class="flex flex-col items-center space-y-4 sm:space-y-0 sm:flex-row sm:items-start sm:space-x-4">
               <div
-                class="w-12 h-12 bg-luxe-soft-blue rounded-full flex items-center justify-center icon-pulse">
+                class="w-12 h-12 bg-luxe-soft-blue rounded-full flex items-center justify-center icon-pulse mx-auto sm:mx-0">
                 <i class="fas fa-shield-alt text-luxe-blue text-xl"></i>
               </div>
-              <div>
+              <div class="text-center sm:text-left">
                 <h4 class="font-semibold text-gray-900">Bảo mật tuyệt đối thông tin</h4>
                 <p class="text-gray-600">Đảm bảo an toàn cho khách hàng</p>
               </div>
             </div>
-            <div class="flex items-start space-x-4">
+            <div
+              class="flex flex-col items-center space-y-4 sm:space-y-0 sm:flex-row sm:items-start sm:space-x-4">
               <div
-                class="w-12 h-12 bg-luxe-soft-blue rounded-full flex items-center justify-center icon-pulse">
+                class="w-12 h-12 bg-luxe-soft-blue rounded-full flex items-center justify-center icon-pulse mx-auto sm:mx-0">
                 <i class="fas fa-headset text-luxe-blue text-xl"></i>
               </div>
-              <div>
+              <div class="text-center sm:text-left">
                 <h4 class="font-semibold text-gray-900">Tư vấn tận tâm 24/7</h4>
                 <p class="text-gray-600">Luôn sẵn sàng hỗ trợ bất cứ khi nào bạn cần</p>
               </div>
@@ -646,7 +706,7 @@
         </ul>
         <div class="bg-white/80 rounded-2xl shadow-lg p-6 elevate" data-aos="fade-left"
           data-aos-delay="200">
-          <p class="text-gray-700">Nếu bạn đang ở trong tình huống này – <span
+          <p class="text-gray-700">Nếu bạn đang ở trong trường hợp này – <span
               class="font-semibold">Nam Phú Quý</span> chính là lựa chọn dành cho bạn.</p>
           <a href="#contact"
             class="inline-block mt-4 bg-luxe-blue text-white px-6 py-3 rounded-full font-medium hover:bg-luxe-dark-blue transition-colors">Nhận
@@ -656,32 +716,57 @@
     </div>
   </section>
 
-  <!-- Solutions Section -->
+  <!-- Process Steps (new layout) -->
   <section class="py-20 section-royal-soft">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12" data-aos="fade-up">
-        <h2 class="text-4xl font-elegant font-bold text-gray-900 mb-4 gradient-text">Giải pháp từ
-          Nam Phú Quý</h2>
-        <p class="text-lg text-gray-600 max-w-4xl mx-auto">Chúng tôi mang đến dịch vụ đáo rút tín
-          dụng chuyên nghiệp, giúp khách hàng:</p>
+        <h2 class="text-4xl font-elegant font-bold text-gray-900 mb-4 gradient-text">Quy trình 4
+          bước</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">Đơn giản – rõ ràng – nhanh chóng</p>
       </div>
-      <div class="grid lg:grid-cols-2 gap-10 items-start">
-        <ul class="list-disc pl-6 space-y-3 text-gray-700" data-aos="fade-right"
-          data-aos-delay="100">
-          <li>Đáo hạn thẻ tín dụng và khoản vay ngân hàng chỉ trong vài phút</li>
-          <li>Quy trình đơn giản – minh bạch – rõ ràng</li>
-          <li>Phí dịch vụ hợp lý, không phát sinh</li>
-          <li>Bảo mật thông tin tuyệt đối, không lo rò rỉ dữ liệu</li>
-        </ul>
-        <div class="bg-white/80 rounded-2xl shadow-lg p-6 elevate" data-aos="fade-left"
-          data-aos-delay="200">
-          <h3 class="text-xl font-semibold text-gray-900 mb-4">Quy trình 4 bước đơn giản</h3>
-          <ol class="list-decimal pl-6 space-y-2 text-gray-700">
-            <li>Liên hệ hotline: 0776244963 hoặc 0776952201</li>
-            <li>Được tư vấn và giải đáp thắc mắc</li>
-            <li>Mang theo CCCD/CMND chính chủ đến Nam Phú Quý</li>
-            <li>Nhận tiền, thanh toán phí và kết thúc giao dịch</li>
-          </ol>
+
+      <div class="relative steps" data-aos="fade-up" data-aos-delay="100">
+        <div
+          class="hidden md:block absolute left-0 right-0 border-t-2 border-dashed border-black top-0 translate-y-7 z-0">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+          <div class="flex flex-col items-center text-center">
+            <div class="step-number">1</div>
+            <div class="step-card bg-white">
+              <img src="img/photos/hotline-icon.png" alt="Liên hệ" class="step-illustration">
+              <div class="font-semibold text-gray-900 mb-1">Bước 1</div>
+              <div class="text-gray-700 text-sm">Liên hệ tới hotline 0776952201 hoặc 0776244963.
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="step-number">2</div>
+            <div class="step-card bg-white">
+              <img src="img/photos/staff-icon.png" alt="Tư vấn" class="step-illustration">
+              <div class="font-semibold text-gray-900 mb-1">Bước 2</div>
+              <div class="text-gray-700 text-sm">Nhân viên chúng tôi sẽ tư vấn giải đáp thắc mắc cho
+                bạn.</div>
+            </div>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="step-number">3</div>
+            <div class="step-card bg-white">
+              <img src="img/photos/icon-card.webp" alt="Mang thẻ và giấy tờ"
+                class="step-illustration">
+              <div class="font-semibold text-gray-900 mb-1">Bước 3</div>
+              <div class="text-gray-700 text-sm">Mang theo thẻ và CCCD/CMND chính chủ đến điểm giao
+                dịch.</div>
+            </div>
+          </div>
+          <div class="flex flex-col items-center text-center">
+            <div class="step-number">4</div>
+            <div class="step-card bg-white">
+              <img src="img/photos/icon-money.png" alt="Nhận tiền" class="step-illustration">
+              <div class="font-semibold text-gray-900 mb-1">Bước 4</div>
+              <div class="text-gray-700 text-sm">Nhận tiền - thanh toán phí và kết thúc giao dịch.
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -753,19 +838,27 @@
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 reveal-stagger">
         <div class="text-center" data-aos="fade-up" data-aos-delay="100">
-          <div class="text-5xl font-bold text-luxe-blue mb-2">98%</div>
+          <div class="text-5xl font-bold text-luxe-blue mb-2">
+            <span class="counter" data-target="98" data-suffix="%">0%</span>
+          </div>
           <div class="text-gray-600 font-medium">Khách hàng quay lại sử dụng dịch vụ</div>
         </div>
         <div class="text-center" data-aos="fade-up" data-aos-delay="200">
-          <div class="text-5xl font-bold text-luxe-blue mb-2">5+</div>
+          <div class="text-5xl font-bold text-luxe-blue mb-2">
+            <span class="counter" data-target="5" data-suffix="+">0+</span>
+          </div>
           <div class="text-gray-600 font-medium">Năm kinh nghiệm</div>
         </div>
         <div class="text-center" data-aos="fade-up" data-aos-delay="300">
-          <div class="text-5xl font-bold text-luxe-blue mb-2">10.000+</div>
+          <div class="text-5xl font-bold text-luxe-blue mb-2">
+            <span class="counter" data-target="10000" data-format="comma" data-suffix="+">0+</span>
+          </div>
           <div class="text-gray-600 font-medium">Giao dịch thành công</div>
         </div>
         <div class="text-center" data-aos="fade-up" data-aos-delay="400">
-          <div class="text-5xl font-bold text-luxe-blue mb-2">3500+</div>
+          <div class="text-5xl font-bold text-luxe-blue mb-2">
+            <span class="counter" data-target="3500" data-format="comma" data-suffix="+">0+</span>
+          </div>
           <div class="text-gray-600 font-medium">Khách hàng hài lòng</div>
         </div>
       </div>
@@ -781,60 +874,232 @@
         <p class="text-lg text-gray-600 max-w-3xl mx-auto">Phản hồi chân thực từ khách hàng đã sử
           dụng dịch vụ rút – đáo tín dụng.</p>
       </div>
-      <div class="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-2">
-        <div
-          class="min-w-[320px] snap-start bg-white rounded-2xl p-8 elevate border border-gray-100"
-          data-aos="fade-up" data-aos-delay="100">
-          <div class="flex items-center mb-4 text-yellow-400">
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-              class="fas fa-star"></i><i class="fas fa-star"></i>
-          </div>
-          <p class="text-gray-700 mb-6 italic">"Tôi từng rất lo khi gần đến hạn trả nợ thẻ, may mắn
-            có Nam Phú Quý xử lý chỉ trong một buổi. Mọi thủ tục đều rõ ràng, rất an tâm."</p>
-          <div class="flex items-center">
-            <img src="./img/photos/logo.png" alt="Anh Quang"
-              class="w-12 h-12 rounded-full object-cover mr-4">
-            <div>
-              <h4 class="font-semibold text-gray-900">Anh Quang</h4>
-              <p class="text-sm text-gray-600">TP.HCM</p>
+      <div class="relative overflow-visible">
+        <!-- Navigation Buttons for testimonials -->
+        <button
+          class="carousel-btn carousel-btn-prev absolute -left-12 md:-left-16 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-[60]"
+          id="testimonialsPrev">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <button
+          class="carousel-btn carousel-btn-next absolute -right-12 md:-right-16 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-[60]"
+          id="testimonialsNext">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+            </path>
+          </svg>
+        </button>
+
+        <div class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 no-scrollbar"
+          id="testimonialsScroller">
+          <div
+            class="min-w-[292px] snap-start bg-white rounded-2xl p-8 elevate border border-gray-100"
+            data-aos="fade-up" data-aos-delay="100">
+            <div class="flex items-center mb-4 text-yellow-400">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="text-gray-700 mb-6 italic">"Tôi từng rất lo khi gần đến hạn trả nợ thẻ, may
+              mắn
+              có Nam Phú Quý xử lý chỉ trong một buổi. Mọi thủ tục đều rõ ràng, rất an tâm."</p>
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=96&h=96&fit=crop&crop=faces"
+                alt="Anh Quang" class="w-12 h-12 rounded-full object-cover mr-4">
+              <div>
+                <h4 class="font-semibold text-gray-900">Anh Quang</h4>
+                <p class="text-sm text-gray-600">TP.HCM</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div
-          class="min-w-[320px] snap-start bg-white rounded-2xl p-8 elevate border border-gray-100"
-          data-aos="fade-up" data-aos-delay="200">
-          <div class="flex items-center mb-4 text-yellow-400">
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-              class="fas fa-star"></i><i class="fas fa-star"></i>
-          </div>
-          <p class="text-gray-700 mb-6 italic">"Điều tôi hài lòng nhất là sự minh bạch và bảo mật.
-            Không phát sinh chi phí ngoài thỏa thuận, đúng hẹn và uy tín."</p>
-          <div class="flex items-center">
-            <img src="./img/photos/logo.png" alt="Chị Lan"
-              class="w-12 h-12 rounded-full object-cover mr-4">
-            <div>
-              <h4 class="font-semibold text-gray-900">Chị Lan</h4>
-              <p class="text-sm text-gray-600">Bình Thạnh</p>
+          <div
+            class="min-w-[292px] snap-start bg-white rounded-2xl p-8 elevate border border-gray-100"
+            data-aos="fade-up" data-aos-delay="200">
+            <div class="flex items-center mb-4 text-yellow-400">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="text-gray-700 mb-6 italic">"Điều tôi hài lòng nhất là sự minh bạch và bảo mật.
+              Không phát sinh chi phí ngoài thỏa thuận, đúng hẹn và uy tín."</p>
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=96&h=96&fit=crop&crop=faces"
+                alt="Chị Lan" class="w-12 h-12 rounded-full object-cover mr-4">
+              <div>
+                <h4 class="font-semibold text-gray-900">Chị Lan</h4>
+                <p class="text-sm text-gray-600">Bình Thạnh</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div
-          class="min-w-[320px] snap-start bg-white rounded-2xl p-8 elevate border border-gray-100"
-          data-aos="fade-up" data-aos-delay="300">
-          <div class="flex items-center mb-4 text-yellow-400">
-            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-              class="fas fa-star"></i><i class="fas fa-star"></i>
-          </div>
-          <p class="text-gray-700 mb-6 italic">"Thủ tục nhanh, nhân viên hướng dẫn kỹ, chỉ vài phút
-            là xong. Sẽ giới thiệu bạn bè khi cần."</p>
-          <div class="flex items-center">
-            <img src="./img/photos/logo.png" alt="Anh Minh"
-              class="w-12 h-12 rounded-full object-cover mr-4">
-            <div>
-              <h4 class="font-semibold text-gray-900">Anh Minh</h4>
-              <p class="text-sm text-gray-600">Thủ Đức</p>
+          <div
+            class="min-w-[292px] snap-start bg-white rounded-2xl p-8 elevate border border-gray-100"
+            data-aos="fade-up" data-aos-delay="300">
+            <div class="flex items-center mb-4 text-yellow-400">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="text-gray-700 mb-6 italic">"Thủ tục nhanh, nhân viên hướng dẫn kỹ, chỉ vài
+              phút
+              là xong. Sẽ giới thiệu bạn bè khi cần."</p>
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?w=96&h=96&fit=crop&crop=faces"
+                alt="Anh Minh" class="w-12 h-12 rounded-full object-cover mr-4">
+              <div>
+                <h4 class="font-semibold text-gray-900">Anh Minh</h4>
+                <p class="text-sm text-gray-600">Thủ Đức</p>
+              </div>
             </div>
           </div>
+          <!-- Added testimonials -->
+          <div
+            class="min-w-[292px] snap-start bg-white rounded-2xl p-8 elevate border border-gray-100"
+            data-aos="fade-up" data-aos-delay="400">
+            <div class="flex items-center mb-4 text-yellow-400">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="text-gray-700 mb-6 italic">"Lần đầu sử dụng dịch vụ mà thấy rất chuyên nghiệp,
+              mọi thủ tục đều nhanh gọn, nhân viên hỗ trợ tận tình. Tôi cảm thấy yên tâm và chắc
+              chắn sẽ quay lại khi cần."</p>
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=96&h=96&fit=crop&crop=faces"
+                alt="Chị Hương" class="w-12 h-12 rounded-full object-cover mr-4">
+              <div>
+                <h4 class="font-semibold text-gray-900">Chị Hương</h4>
+                <p class="text-sm text-gray-600">Quận 7, TP.HCM</p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="min-w-[292px] snap-start bg-white rounded-2xl p-8 elevate border border-gray-100"
+            data-aos="fade-up" data-aos-delay="500">
+            <div class="flex items-center mb-4 text-yellow-400">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="text-gray-700 mb-6 italic">"Tôi được hỗ trợ ngay trong ngày, không để lỡ hạn
+              thanh toán. Quan trọng nhất là không phát sinh thêm chi phí nào ngoài thỏa thuận ban
+              đầu. Dịch vụ uy tín đáng tin cậy."</p>
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=96&h=96&fit=crop&crop=faces"
+                alt="Anh Tuấn" class="w-12 h-12 rounded-full object-cover mr-4">
+              <div>
+                <h4 class="font-semibold text-gray-900">Anh Tuấn</h4>
+                <p class="text-sm text-gray-600">Gò Vấp, TP.HCM</p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="min-w-[320px] snap-start bg-white rounded-2xl p-8 elevate border border-gray-100"
+            data-aos="fade-up" data-aos-delay="600">
+            <div class="flex items-center mb-4 text-yellow-400">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="text-gray-700 mb-6 italic">"Nhân viên tư vấn rõ ràng, thủ tục đơn giản, chỉ
+              cần cung cấp giấy tờ cơ bản là giải quyết ngay. Dịch vụ này thật sự giúp tôi tháo gỡ
+              khó khăn kịp thời."</p>
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=96&h=96&fit=crop&crop=faces"
+                alt="Chị Mai" class="w-12 h-12 rounded-full object-cover mr-4">
+              <div>
+                <h4 class="font-semibold text-gray-900">Chị Mai</h4>
+                <p class="text-sm text-gray-600">Bình Tân</p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="min-w-[320px] snap-start bg-white rounded-2xl p-8 elevate border border-gray-100"
+            data-aos="fade-up" data-aos-delay="700">
+            <div class="flex items-center mb-4 text-yellow-400">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="text-gray-700 mb-6 italic">"Không nghĩ là nhanh như vậy, tôi vừa liên hệ buổi
+              sáng thì chiều đã hoàn tất. Cách làm việc chuyên nghiệp, bảo mật tuyệt đối, tôi hoàn
+              toàn hài lòng."</p>
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=96&h=96&fit=crop&crop=faces"
+                alt="Anh Dũng" class="w-12 h-12 rounded-full object-cover mr-4">
+              <div>
+                <h4 class="font-semibold text-gray-900">Anh Dũng</h4>
+                <p class="text-sm text-gray-600">Quận 3, TP.HCM</p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="min-w-[320px] snap-start bg-white rounded-2xl p-8 elevate border border-gray-100"
+            data-aos="fade-up" data-aos-delay="800">
+            <div class="flex items-center mb-4 text-yellow-400">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="text-gray-700 mb-6 italic">"Tôi đánh giá cao sự nhiệt tình của nhân viên,
+              hướng dẫn chi tiết từng bước. Chỉ mất ít phút là đã xử lý xong, rất thuận tiện."</p>
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1544005316-04ce98d1f16f?w=96&h=96&fit=crop&crop=faces"
+                alt="Chị Ngọc" class="w-12 h-12 rounded-full object-cover mr-4">
+              <div>
+                <h4 class="font-semibold text-gray-900">Chị Ngọc</h4>
+                <p class="text-sm text-gray-600">Tân Phú</p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="min-w-[292px] snap-start bg-white rounded-2xl p-8 elevate border border-gray-100"
+            data-aos="fade-up" data-aos-delay="900">
+            <div class="flex items-center mb-4 text-yellow-400">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="text-gray-700 mb-6 italic">"Trước đây tôi từng lo lắng khi đến hạn trả nợ, giờ
+              thì hoàn toàn thoải mái vì đã có Nam Phú Quý hỗ trợ kịp thời. Thật sự đáng tin cậy."
+            </p>
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1546527868-ccb7ee7dfa6a?w=96&h=96&fit=crop&crop=faces"
+                alt="Anh Long" class="w-12 h-12 rounded-full object-cover mr-4">
+              <div>
+                <h4 class="font-semibold text-gray-900">Anh Long</h4>
+                <p class="text-sm text-gray-600">Bình Chánh</p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="min-w-[292px] snap-start bg-white rounded-2xl p-8 elevate border border-gray-100"
+            data-aos="fade-up" data-aos-delay="1000">
+            <div class="flex items-center mb-4 text-yellow-400">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="text-gray-700 mb-6 italic">"Dịch vụ ở đây làm mình yên tâm, không vòng vo,
+              không phát sinh chi phí lạ. Mọi thứ đều minh bạch nên rất tin tưởng."</p>
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=96&h=96&fit=crop&crop=faces"
+                alt="Anh Hậu" class="w-12 h-12 rounded-full object-cover mr-4">
+              <div>
+                <h4 class="font-semibold text-gray-900">Anh Hậu</h4>
+                <p class="text-sm text-gray-600">Quận 10, TP.HCM</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -846,79 +1111,130 @@
         <h2 class="text-4xl font-elegant font-bold text-gray-900 mb-4 gradient-text">Hình ảnh thực
           tế</h2>
         <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-          Hình ảnh thực tế về dịch vụ rút – đáo tín dụng của Nam Phú Quý.
+          Hình ảnh thực tế về dịch vụ đáo- rút tín dụng tại NAM PHÚ QUÝ.
         </p>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 reveal-stagger">
-        <!-- Gallery Image 1 -->
-        <div
-          class="aspect-square overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 elevate"
-          data-aos="zoom-in" data-aos-delay="100">
-          <img src="./img/photos/1.png" alt="Thẻ và dịch vụ rút tiền"
-            class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
-        </div>
-
-        <!-- Gallery Image 2 -->
-        <div
-          class="aspect-square overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 elevate"
-          data-aos="zoom-in" data-aos-delay="200">
-          <img src="./img/photos/z7076427031820_dce242f25b38287332e3734084b684fe.jpg"
-            alt="Dịch vụ hỗ trợ đáo hạn"
-            class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
-        </div>
-
-        <!-- Gallery Image 3 -->
-        <div
-          class="aspect-square overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 elevate"
-          data-aos="zoom-in" data-aos-delay="300">
-          <img src="./img/photos/2.png" alt="Thẻ tín dụng đa ngân hàng"
-            class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
-        </div>
-
-        <!-- Gallery Image 4 -->
-        <div
-          class="aspect-square overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 elevate"
-          data-aos="zoom-in" data-aos-delay="400">
-          <img src="./img/photos/z7041572672485_578e2489ceb31a701b8fc19d99861c42.jpg"
-            alt="Tư vấn nhanh chóng"
-            class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
-        </div>
-
-        <!-- Gallery Image 5 -->
-        <div
-          class="aspect-square overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 elevate"
-          data-aos="zoom-in" data-aos-delay="500">
-          <img src="./img/photos/z7047977011552_f701612b39f50ffea948df453a023d90.jpg"
-            alt="Hỗ trợ minh bạch"
-            class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
-        </div>
-
-        <!-- Gallery Image 6 -->
-        <div
-          class="aspect-square overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 elevate"
-          data-aos="zoom-in" data-aos-delay="600">
-          <img src="./img/photos/z7072940067836_6291825ddaff56094d43752d66ced44c.jpg"
-            alt="Biểu tượng trang trí"
-            class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
-        </div>
-
-        <!-- Gallery Image 7 -->
-        <div
-          class="aspect-square overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 elevate"
-          data-aos="zoom-in" data-aos-delay="700">
-          <img src="./img/photos/z7072944096921_cb8eb6ce218fc0ad1fd74e356a23e8a4.jpg"
-            alt="Biểu tượng trang trí 2"
-            class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
-        </div>
-
-        <!-- Gallery Image 8 - Using growth.svg as decorative element -->
-        <div
-          class="aspect-square overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 elevate"
-          data-aos="zoom-in" data-aos-delay="800">
-          <img src="./img/photos/z7072972622871_5ac4096bd10da8bcab80944d00ec972d.jpg"
-            alt="Liên hệ Zalo"
-            class="w-full h-full object-contain hover:scale-105 transition-transform duration-300">
+      <!-- Gallery Carousel -->
+      <div class="relative max-w-7xl mx-auto" data-aos="fade-up">
+        <!-- Navigation Buttons - Outside carousel -->
+        <button
+          class="carousel-btn carousel-btn-prev absolute -left-10 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white/90 hover:bg-white text-gray-800 rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 z-10"
+          id="prevBtn">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <button
+          class="carousel-btn carousel-btn-next absolute -right-10 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white/90 hover:bg-white text-gray-800 rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 z-10"
+          id="nextBtn">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+            </path>
+          </svg>
+        </button>
+        <!-- Swiper Container -->
+        <div class="gallery-swiper swiper relative overflow-hidden rounded-2xl shadow-2xl"
+          id="galleryCarousel">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6">
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/1.jpg" alt="Thẻ và dịch vụ rút tiền"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/2.jpg" alt="Dịch vụ hỗ trợ đáo hạn"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/3.jpg" alt="Thẻ tín dụng đa ngân hàng"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/4.jpg" alt="Tư vấn nhanh chóng"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6">
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/5.jpg" alt="Hỗ trợ minh bạch"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/6.jpg" alt="Biểu tượng trang trí"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/7.jpg" alt="Biểu tượng trang trí 2"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/8.jpg" alt="Liên hệ Zalo"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6">
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/9.jpg" alt="Liên hệ Zalo"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/10.jpg" alt="Liên hệ Zalo"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/11.jpg" alt="Liên hệ Zalo"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/12.jpg" alt="Liên hệ Zalo"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6">
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/13.jpg" alt="Liên hệ Zalo"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/14.jpg" alt="Liên hệ Zalo"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/15.jpg" alt="Liên hệ Zalo"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div
+                  class="aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <img src="./img/photos/16.jpg" alt="Liên hệ Zalo"
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -935,30 +1251,48 @@
 
       <div class="gap-12">
 
-        <!-- Contact Information & Map -->
-        <div class="space-y-8 grid lg:grid-cols-2">
-          <!-- Contact Info -->
-          <div class="space-y-6" data-aos="fade-right" data-aos-delay="100">
-            <h3 class="text-2xl font-semibold text-gray-900">Thông tin liên hệ</h3>
-
-            <div class="flex items-start space-x-4">
-              <div
-                class="w-12 h-12 bg-luxe-soft-blue rounded-full flex items-center justify-center flex-shrink-0 icon-pulse">
-                <i class="fas fa-map-marker-alt text-luxe-blue text-xl"></i>
-              </div>
-              <div>
-                <h4 class="font-semibold text-gray-900">Địa chỉ văn phòng</h4>
-                <ul class="text-gray-600 space-y-1">
-                  <li>1) 111/4 Vườn Lài, Tân Phú</li>
-                  <li>2) Lê Đức Thọ, Gò Vấp</li>
-                  <li>3) Đường số 7, KĐT Vạn Phúc City, Thủ Đức</li>
-                  <li>4) Nguyễn Văn Trỗi, Hiệp Thành, Thủ Dầu Một</li>
-                  <li>5) Đường A, An Khánh, Thủ Đức</li>
-                  <li>6) Đại lộ Bình Dương, Lái Thiêu, Thuận An</li>
-                </ul>
+        <!-- Contact Information - Split equally, no map -->
+        <div class="space-y-8">
+          <div class="grid gap-8 lg:grid-cols-2">
+            <!-- Hồ Chí Minh -->
+            <div class="space-y-4" data-aos="fade-right" data-aos-delay="100">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="w-12 h-12 bg-luxe-soft-blue rounded-full flex items-center justify-center flex-shrink-0 icon-pulse">
+                  <i class="fas fa-map-marker-alt text-luxe-blue text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900">Hồ Chí Minh</h4>
+                  <ul class="text-gray-600 space-y-1 list-none">
+                    <li>1. 111/4 Vườn Lài, Tân Phú</li>
+                    <li>2. Lê Đức Thọ, Gò Vấp</li>
+                    <li>3. Đường số 7, KĐT Vạn Phúc City, Thủ Đức</li>
+                    <li>4. Đường A, An Khánh, Thủ Đức</li>
+                  </ul>
+                </div>
               </div>
             </div>
 
+            <!-- Bình Dương -->
+            <div class="space-y-4" data-aos="fade-left" data-aos-delay="150">
+              <div class="flex items-start space-x-4">
+                <div
+                  class="w-12 h-12 bg-luxe-soft-blue rounded-full flex items-center justify-center flex-shrink-0 icon-pulse">
+                  <i class="fas fa-map-marker-alt text-luxe-blue text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-gray-900">Bình Dương</h4>
+                  <ul class="text-gray-600 space-y-1 list-none">
+                    <li>1. Nguyễn Văn Trỗi, Hiệp Thành, Thủ Dầu Một</li>
+                    <li>2. Đại lộ Bình Dương, Lái Thiêu, Thuận An</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other contact details -->
+          <div class="grid gap-8 md:grid-cols-3">
             <div class="flex items-start space-x-4">
               <div
                 class="w-12 h-12 bg-luxe-soft-blue rounded-full flex items-center justify-center flex-shrink-0 icon-pulse">
@@ -979,7 +1313,8 @@
               </div>
               <div>
                 <h4 class="font-semibold text-gray-900">Email</h4>
-                <p class="text-gray-600">namphuquycredit@gmail.com</p>
+                <a href="mailto:namphuquycredit@gmail.com"
+                  class="text-gray-600">namphuquycredit@gmail.com</a>
               </div>
             </div>
 
@@ -994,16 +1329,6 @@
                 <p class="text-gray-600">Hỗ trợ tận nơi (tính phí di chuyển)</p>
               </div>
             </div>
-          </div>
-
-          <!-- Google Maps Embed -->
-          <div class="bg-gray-200 rounded-2xl overflow-hidden elevate" data-aos="fade-left"
-            data-aos-delay="200">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3304.1234567890!2d-118.1234567!3d34.1234567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDA3JzI0LjQiTiAxMTjCsDA3JzI0LjQiVw!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
-              width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
           </div>
         </div>
       </div>
@@ -1123,7 +1448,7 @@
       <a href="https://zalo.me/0776244963" target="_blank" rel="noopener noreferrer" tabindex="0"
         aria-label="Liên hệ qua Zalo">
         <span class="ring-ping ring-ping--sky"></span>
-        <div class="tooltip">Zalo Chat</div>
+        <!-- <div class="tooltip">Zalo Chat</div> -->
         <div class="ripple-cover animate-ripple-1"></div>
         <div class="ripple-cover animate-ripple-2"></div>
         <div class="ripple-cover animate-ripple-3"></div>
@@ -1136,9 +1461,9 @@
     <div class="float-item">
       <a href="tel:0776952201" tabindex="0" aria-label="Gọi số điện thoại: 0776952201">
         <span class="ring-ping"></span>
-        <div class="tooltip"
+        <!-- <div class="tooltip"
           style="background: linear-gradient(90deg, #2563eb, #1e40af); font-weight: 700;">
-          0776952201</div>
+          0776952201</div> -->
         <div class="ripple-cover animate-ripple-1"></div>
         <div class="ripple-cover animate-ripple-2"></div>
         <div class="ripple-cover animate-ripple-3"></div>
@@ -1241,6 +1566,101 @@
         alert('Thank you for your message! We will get back to you soon.');
       });
     }
+
+    // Back to Top functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const backToTopButton = document.getElementById('backToTop');
+
+      // Show/hide button based on scroll position
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add('show');
+        } else {
+          backToTopButton.classList.remove('show');
+        }
+      });
+
+      // Smooth scroll to top when button is clicked
+      backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+  <script>
+    // Counter animation for statistics section
+    function animateCounter(el, target, suffix = '', format = '', duration = 1800) {
+      let start = 0;
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        let value = Math.floor(progress * (target - start) + start);
+        if (format === 'comma') value = value.toLocaleString('en-US');
+        el.textContent = value + suffix;
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          // Ensure final value is exact
+          let finalValue = target;
+          if (format === 'comma') finalValue = finalValue.toLocaleString('en-US');
+          el.textContent = finalValue + suffix;
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    function runCountersIfVisible() {
+      const counters = document.querySelectorAll('.counter');
+      let triggered = false;
+      function isInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+          rect.top < window.innerHeight - 80 && rect.bottom > 0
+        );
+      }
+      counters.forEach(counter => {
+        if (!counter.dataset.animated && isInViewport(counter)) {
+          const target = parseInt(counter.getAttribute('data-target'), 10);
+          const suffix = counter.getAttribute('data-suffix') || '';
+          const format = counter.getAttribute('data-format') || '';
+          animateCounter(counter, target, suffix, format);
+          counter.dataset.animated = "true";
+          triggered = true;
+        }
+      });
+      return triggered;
+    }
+
+    // Run on scroll and on load
+    window.addEventListener('scroll', runCountersIfVisible);
+    window.addEventListener('DOMContentLoaded', runCountersIfVisible);
+  </script>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.Swiper) {
+        if (!document.querySelector('.gallery-swiper')._initialized) {
+          new Swiper('.gallery-swiper', {
+            loop: false,
+            navigation: {
+              nextEl: '#nextBtn',
+              prevEl: '#prevBtn'
+            },
+            keyboard: {
+              enabled: true
+            }
+          });
+          document.querySelector('.gallery-swiper')._initialized = true;
+        }
+      }
+    });
   </script>
 </body>
 

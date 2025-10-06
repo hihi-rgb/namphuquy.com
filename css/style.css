@@ -10,6 +10,55 @@
   }
 }
 
+/* ------------------------------ */
+/* ---- GLOBAL OVERFLOW GUARDS --- */
+/* ------------------------------ */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Hide scrollbars globally but keep scrolling */
+html,
+body {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+/* Utility to hide scrollbars on specific elements */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 @keyframes shake {
   0% {
     transform: rotate(0deg);
@@ -105,8 +154,8 @@
 
 .float-actions {
   position: fixed;
-  right: 24px;
-  bottom: 100px;
+  right: 30px;
+  bottom: 130px;
   display: flex;
   flex-direction: column;
   gap: 55px;
@@ -198,4 +247,177 @@
   height: 100%;
   border-radius: 50%;
   display: block;
+}
+
+/* Gallery Carousel Styles */
+.carousel-container {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.carousel-wrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  overflow: hidden;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-btn {
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.carousel-btn:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-dot.active {
+  background-color: #3b82f6;
+  transform: scale(1.2);
+}
+
+.carousel-dot:hover {
+  background-color: #60a5fa;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .carousel-btn {
+    padding: 0.5rem;
+    transform: translateY(-50%) scale(0.8);
+  }
+
+  .carousel-btn:hover {
+    transform: translateY(-50%) scale(0.9);
+  }
+
+  .carousel-btn svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .carousel-container {
+    margin: 0 -1rem;
+    overflow: hidden;
+  }
+
+  /* Hide navigation buttons on very small screens */
+  @media (max-width: 480px) {
+    .carousel-btn {
+      display: none;
+    }
+  }
+}
+
+/* Back to Top Button Styles */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #ba28ba, #4f46e5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 4px 20px rgba(186, 40, 186, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.back-to-top.show {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: linear-gradient(135deg, #a020a0, #3730a3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(186, 40, 186, 0.4);
+}
+
+.back-to-top:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-to-top {
+    bottom: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
+/* ------------------------------ */
+/* --------- STEPS BLOCK -------- */
+/* ------------------------------ */
+.steps .step-number {
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 20px;
+  color: #1f2937;
+  /* neutral text */
+  background: #ffffff;
+  /* neutral circle */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 16px;
+}
+
+.steps .step-card {
+  width: 100%;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* small image inside each step */
+.steps .step-illustration {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin: 0 auto 10px auto;
+}
+
+@media (min-width: 768px) {
+  .steps .step-card {
+    max-width: 260px;
+  }
 }
