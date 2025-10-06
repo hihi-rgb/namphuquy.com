@@ -726,42 +726,54 @@
       </div>
 
       <div class="relative steps" data-aos="fade-up" data-aos-delay="100">
+        <!-- Đường kẻ chỉ hiện trên md trở lên (ngang) -->
         <div
           class="hidden md:block absolute left-0 right-0 border-t-2 border-dashed border-black top-0 translate-y-7 z-0">
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
-          <div class="flex flex-col items-center text-center">
-            <div class="step-number">1</div>
-            <div class="step-card bg-white">
-              <img src="img/photos/hotline-icon.png" alt="Liên hệ" class="step-illustration">
+        <!-- Đường kẻ chỉ dọc cho mobile (trùng tâm với vòng tròn số) -->
+        <div
+          class="block md:hidden absolute left-7 top-7 bottom-7 border-l-2 border-dashed border-black z-0">
+        </div>
+        <!-- Mobile: dọc, Desktop: ngang -->
+        <div class="flex flex-col gap-6 md:grid md:grid-cols-4 md:gap-6 relative z-10">
+          <!-- Bước 1 -->
+          <div class="flex flex-row md:flex-col items-center text-center md:text-center relative">
+            <div class="step-number mb-0 md:mb-2 mr-4 md:mr-0 z-10 bg-white relative">1</div>
+            <div class="step-card bg-white flex-1 md:flex-none">
+              <img src="img/photos/hotline-icon.png" alt="Liên hệ"
+                class="step-illustration mx-auto">
               <div class="font-semibold text-gray-900 mb-1">Bước 1</div>
               <div class="text-gray-700 text-sm">Liên hệ tới hotline 0776952201 hoặc 0776244963.
               </div>
             </div>
           </div>
-          <div class="flex flex-col items-center text-center">
-            <div class="step-number">2</div>
-            <div class="step-card bg-white">
-              <img src="img/photos/staff-icon.png" alt="Tư vấn" class="step-illustration">
+          <!-- Bước 2 -->
+          <div class="flex flex-row md:flex-col items-center text-center md:text-center relative">
+            <div class="step-number mb-0 md:mb-2 mr-4 md:mr-0 z-10 bg-white relative">2</div>
+            <div class="step-card bg-white flex-1 md:flex-none">
+              <img src="img/photos/staff-icon.png" alt="Tư vấn" class="step-illustration mx-auto">
               <div class="font-semibold text-gray-900 mb-1">Bước 2</div>
               <div class="text-gray-700 text-sm">Nhân viên chúng tôi sẽ tư vấn giải đáp thắc mắc cho
                 bạn.</div>
             </div>
           </div>
-          <div class="flex flex-col items-center text-center">
-            <div class="step-number">3</div>
-            <div class="step-card bg-white">
+          <!-- Bước 3 -->
+          <div class="flex flex-row md:flex-col items-center text-center md:text-center relative">
+            <div class="step-number mb-0 md:mb-2 mr-4 md:mr-0 z-10 bg-white relative">3</div>
+            <div class="step-card bg-white flex-1 md:flex-none">
               <img src="img/photos/icon-card.webp" alt="Mang thẻ và giấy tờ"
-                class="step-illustration">
+                class="step-illustration mx-auto">
               <div class="font-semibold text-gray-900 mb-1">Bước 3</div>
               <div class="text-gray-700 text-sm">Mang theo thẻ và CCCD/CMND chính chủ đến điểm giao
                 dịch.</div>
             </div>
           </div>
-          <div class="flex flex-col items-center text-center">
-            <div class="step-number">4</div>
-            <div class="step-card bg-white">
-              <img src="img/photos/icon-money.png" alt="Nhận tiền" class="step-illustration">
+          <!-- Bước 4 -->
+          <div class="flex flex-row md:flex-col items-center text-center md:text-center relative">
+            <div class="step-number mb-0 md:mb-2 mr-4 md:mr-0 z-10 bg-white relative">4</div>
+            <div class="step-card bg-white flex-1 md:flex-none">
+              <img src="img/photos/icon-money.png" alt="Nhận tiền"
+                class="step-illustration mx-auto">
               <div class="font-semibold text-gray-900 mb-1">Bước 4</div>
               <div class="text-gray-700 text-sm">Nhận tiền - thanh toán phí và kết thúc giao dịch.
               </div>
