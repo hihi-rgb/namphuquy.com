@@ -445,6 +445,392 @@
     .parallax-up {
       will-change: transform;
     }
+
+    /* Step Animation Styles */
+    .step-container {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .step-container.animate-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.25rem;
+      box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step-number::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s;
+    }
+
+    .step-number:hover::before {
+      left: 100%;
+    }
+
+    .step-number:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 35px rgba(79, 70, 229, 0.4);
+    }
+
+    .step-card {
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      background: rgb(255, 255, 255);
+    }
+
+    .step-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .step-illustration {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+    }
+
+    .step-card:hover .step-illustration {
+      transform: scale(1.1);
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+    }
+
+    /* Animated connecting line */
+    .step-line {
+      position: absolute;
+      height: 3px;
+      top: 30px;
+      left: 0;
+      right: 0;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+    }
+
+    .step-line.animate-line {
+      transform: scaleX(1);
+    }
+
+    /* Mobile vertical line */
+    .step-line-vertical {
+      position: absolute;
+      background: linear-gradient(180deg, #4f46e5, #7c3aed);
+      width: 3px;
+      left: 30px;
+      top: 0;
+      bottom: 0;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+    }
+
+    .step-line-vertical.animate-line {
+      transform: scaleY(1);
+    }
+
+    /* Staggered animation delays */
+    .step-container:nth-child(1) {
+      transition-delay: 0.1s;
+    }
+
+    .step-container:nth-child(2) {
+      transition-delay: 0.3s;
+    }
+
+    .step-container:nth-child(3) {
+      transition-delay: 0.5s;
+    }
+
+    .step-container:nth-child(4) {
+      transition-delay: 0.7s;
+    }
+
+    /* Pulse animation for step numbers */
+    @keyframes stepPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 8px 25px rgb(255, 255, 255);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 12px 35px rgb(255, 255, 255);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .step-number.animate-pulse {
+      animation: stepPulse 2s ease-in-out infinite;
+    }
+
+    /* Button Animation Styles */
+    .btn-animated {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateZ(0);
+    }
+
+    .btn-animated::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s;
+    }
+
+    .btn-animated:hover::before {
+      left: 100%;
+    }
+
+    .btn-animated:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-animated:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    /* Ripple Effect */
+    .btn-ripple {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-ripple::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn-ripple:active::after {
+      width: 300px;
+      height: 300px;
+    }
+
+    /* Bounce Animation for CTA Buttons */
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.3);
+        opacity: 0;
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      70% {
+        transform: scale(0.9);
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .btn-bounce {
+      animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    /* Pulse Animation for Important Buttons */
+    @keyframes buttonPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+      }
+    }
+
+    .btn-pulse {
+      animation: buttonPulse 2s infinite;
+    }
+
+    /* Shake Animation for Error States */
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      10%,
+      30%,
+      50%,
+      70%,
+      90% {
+        transform: translateX(-2px);
+      }
+
+      20%,
+      40%,
+      60%,
+      80% {
+        transform: translateX(2px);
+      }
+    }
+
+    .btn-shake {
+      animation: shake 0.5s ease-in-out;
+    }
+
+    /* Gradient Animation for CTA Buttons */
+    .btn-gradient {
+      background: linear-gradient(45deg, #4f46e5, #7c3aed, #06b6d4, #4f46e5);
+      background-size: 300% 300%;
+      animation: gradientShift 3s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Floating Animation for Action Buttons */
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .btn-float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Glow Effect */
+    .btn-glow {
+      position: relative;
+    }
+
+    .btn-glow::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #4f46e5, #7c3aed, #06b6d4);
+      border-radius: inherit;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .btn-glow:hover::before {
+      opacity: 1;
+    }
+
+    /* Magnetic Effect */
+    .btn-magnetic {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-magnetic:hover {
+      transform: translate(var(--mouse-x, 0), var(--mouse-y, 0)) scale(1.05);
+    }
+
+    /* Ripple Effect Animation */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      transform: scale(0);
+      animation: ripple-animation 0.6s linear;
+      pointer-events: none;
+    }
+
+    @keyframes ripple-animation {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    /* Enhanced button hover effects */
+    .btn-animated:hover {
+      transform: translateY(-3px) scale(1.03);
+    }
+
+    .btn-animated:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    /* Special effects for different button types */
+    .btn-gradient:hover {
+      background-size: 400% 400%;
+      animation-duration: 1.5s;
+    }
+
+    .btn-float:hover {
+      animation-play-state: paused;
+      transform: translateY(-15px);
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 </head>
@@ -559,11 +945,11 @@
           <p class="text-base text-gray-700">CÓ VĂN PHÒNG HỖ TRỢ TẠI TP.HCM VÀ BÌNH DƯƠNG</p>
           <div class="flex flex-col sm:flex-row gap-4">
             <a href="#contact"
-              class="bg-gradient-to-r from-brand-primary via-brand-purple to-brand-accent text-white px-8 py-4 rounded-full text-base font-medium transition-all duration-300 transform hover:scale-105 text-center shadow-lg elevate">
+              class="btn-animated btn-ripple btn-gradient btn-glow text-white px-8 py-4 rounded-full text-base font-medium text-center shadow-lg elevate">
               Nhận tư vấn miễn phí
             </a>
             <a href="#services"
-              class="px-8 py-4 rounded-full text-base font-medium transition-all duration-300 text-center border border-gray-300 hover:border-transparent hover:bg-gray-900 hover:text-white elevate">
+              class="btn-animated btn-ripple px-8 py-4 rounded-full text-base font-medium text-center border border-gray-300 hover:border-transparent hover:bg-gray-900 hover:text-white elevate">
               Xem dịch vụ của chúng tôi
             </a>
           </div>
@@ -709,7 +1095,7 @@
           <p class="text-gray-700">Nếu bạn đang ở trong trường hợp này – <span
               class="font-semibold">Nam Phú Quý</span> chính là lựa chọn dành cho bạn.</p>
           <a href="#contact"
-            class="inline-block mt-4 bg-luxe-blue text-white px-6 py-3 rounded-full font-medium hover:bg-luxe-dark-blue transition-colors">Nhận
+            class="btn-animated btn-ripple btn-pulse inline-block mt-4 bg-luxe-blue text-white px-6 py-3 rounded-full font-medium hover:bg-luxe-dark-blue transition-colors">Nhận
             tư vấn miễn phí</a>
         </div>
       </div>
@@ -737,9 +1123,10 @@
         <!-- Mobile: dọc, Desktop: ngang -->
         <div class="flex flex-col gap-6 md:grid md:grid-cols-4 md:gap-6 relative z-10">
           <!-- Bước 1 -->
-          <div class="flex flex-row md:flex-col items-center text-center md:text-center relative">
-            <div class="step-number mb-0 md:mb-2 mr-4 md:mr-0 z-10 bg-white relative">1</div>
-            <div class="step-card bg-white flex-1 md:flex-none">
+          <div
+            class="step-container flex flex-row md:flex-col items-center text-center md:text-center relative">
+            <div class="step-number mb-0 md:mb-2 mr-4 md:mr-0 z-10 relative">1</div>
+            <div class="step-card flex-1 md:flex-none">
               <img src="img/photos/hotline-icon.png" alt="Liên hệ"
                 class="step-illustration mx-auto">
               <div class="font-semibold text-gray-900 mb-1">Bước 1</div>
@@ -748,9 +1135,10 @@
             </div>
           </div>
           <!-- Bước 2 -->
-          <div class="flex flex-row md:flex-col items-center text-center md:text-center relative">
-            <div class="step-number mb-0 md:mb-2 mr-4 md:mr-0 z-10 bg-white relative">2</div>
-            <div class="step-card bg-white flex-1 md:flex-none">
+          <div
+            class="step-container flex flex-row md:flex-col items-center text-center md:text-center relative">
+            <div class="step-number mb-0 md:mb-2 mr-4 md:mr-0 z-10 relative">2</div>
+            <div class="step-card flex-1 md:flex-none">
               <img src="img/photos/staff-icon.png" alt="Tư vấn" class="step-illustration mx-auto">
               <div class="font-semibold text-gray-900 mb-1">Bước 2</div>
               <div class="text-gray-700 text-sm">Nhân viên chúng tôi sẽ tư vấn giải đáp thắc mắc cho
@@ -758,9 +1146,10 @@
             </div>
           </div>
           <!-- Bước 3 -->
-          <div class="flex flex-row md:flex-col items-center text-center md:text-center relative">
-            <div class="step-number mb-0 md:mb-2 mr-4 md:mr-0 z-10 bg-white relative">3</div>
-            <div class="step-card bg-white flex-1 md:flex-none">
+          <div
+            class="step-container flex flex-row md:flex-col items-center text-center md:text-center relative">
+            <div class="step-number mb-0 md:mb-2 mr-4 md:mr-0 z-10 relative">3</div>
+            <div class="step-card flex-1 md:flex-none">
               <img src="img/photos/icon-card.webp" alt="Mang thẻ và giấy tờ"
                 class="step-illustration mx-auto">
               <div class="font-semibold text-gray-900 mb-1">Bước 3</div>
@@ -769,9 +1158,10 @@
             </div>
           </div>
           <!-- Bước 4 -->
-          <div class="flex flex-row md:flex-col items-center text-center md:text-center relative">
-            <div class="step-number mb-0 md:mb-2 mr-4 md:mr-0 z-10 bg-white relative">4</div>
-            <div class="step-card bg-white flex-1 md:flex-none">
+          <div
+            class="step-container flex flex-row md:flex-col items-center text-center md:text-center relative">
+            <div class="step-number mb-0 md:mb-2 mr-4 md:mr-0 z-10 relative">4</div>
+            <div class="step-card flex-1 md:flex-none">
               <img src="img/photos/icon-money.png" alt="Nhận tiền"
                 class="step-illustration mx-auto">
               <div class="font-semibold text-gray-900 mb-1">Bước 4</div>
@@ -889,7 +1279,7 @@
       <div class="relative overflow-visible">
         <!-- Navigation Buttons for testimonials -->
         <button
-          class="carousel-btn carousel-btn-prev absolute -left-12 md:-left-16 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-[60]"
+          class="btn-animated btn-ripple carousel-btn carousel-btn-prev absolute -left-12 md:-left-16 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-[60]"
           id="testimonialsPrev">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -897,7 +1287,7 @@
           </svg>
         </button>
         <button
-          class="carousel-btn carousel-btn-next absolute -right-12 md:-right-16 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-[60]"
+          class="btn-animated btn-ripple carousel-btn carousel-btn-next absolute -right-12 md:-right-16 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-[60]"
           id="testimonialsNext">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
@@ -918,9 +1308,8 @@
               mắn
               có Nam Phú Quý xử lý chỉ trong một buổi. Mọi thủ tục đều rõ ràng, rất an tâm."</p>
             <div class="flex items-center">
-              <img
-                src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=96&h=96&fit=crop&crop=faces"
-                alt="Anh Quang" class="w-12 h-12 rounded-full object-cover mr-4">
+              <img src="./img/review/n1.jpg" alt="Anh Quang"
+                class="w-12 h-12 rounded-full object-cover mr-4">
               <div>
                 <h4 class="font-semibold text-gray-900">Anh Quang</h4>
                 <p class="text-sm text-gray-600">TP.HCM</p>
@@ -957,9 +1346,8 @@
               phút
               là xong. Sẽ giới thiệu bạn bè khi cần."</p>
             <div class="flex items-center">
-              <img
-                src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?w=96&h=96&fit=crop&crop=faces"
-                alt="Anh Minh" class="w-12 h-12 rounded-full object-cover mr-4">
+              <img src="./img/review/n2.jpg" alt="Anh Minh"
+                class="w-12 h-12 rounded-full object-cover mr-4">
               <div>
                 <h4 class="font-semibold text-gray-900">Anh Minh</h4>
                 <p class="text-sm text-gray-600">Thủ Đức</p>
@@ -978,9 +1366,8 @@
               mọi thủ tục đều nhanh gọn, nhân viên hỗ trợ tận tình. Tôi cảm thấy yên tâm và chắc
               chắn sẽ quay lại khi cần."</p>
             <div class="flex items-center">
-              <img
-                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=96&h=96&fit=crop&crop=faces"
-                alt="Chị Hương" class="w-12 h-12 rounded-full object-cover mr-4">
+              <img src="./img/review/n3.jpg" alt="Chị Hương"
+                class="w-12 h-12 rounded-full object-cover mr-4">
               <div>
                 <h4 class="font-semibold text-gray-900">Chị Hương</h4>
                 <p class="text-sm text-gray-600">Quận 7, TP.HCM</p>
@@ -999,9 +1386,8 @@
               thanh toán. Quan trọng nhất là không phát sinh thêm chi phí nào ngoài thỏa thuận ban
               đầu. Dịch vụ uy tín đáng tin cậy."</p>
             <div class="flex items-center">
-              <img
-                src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=96&h=96&fit=crop&crop=faces"
-                alt="Anh Tuấn" class="w-12 h-12 rounded-full object-cover mr-4">
+              <img src="./img/review/n4.jpg" alt="Anh Tuấn"
+                class="w-12 h-12 rounded-full object-cover mr-4">
               <div>
                 <h4 class="font-semibold text-gray-900">Anh Tuấn</h4>
                 <p class="text-sm text-gray-600">Gò Vấp, TP.HCM</p>
@@ -1020,9 +1406,8 @@
               cần cung cấp giấy tờ cơ bản là giải quyết ngay. Dịch vụ này thật sự giúp tôi tháo gỡ
               khó khăn kịp thời."</p>
             <div class="flex items-center">
-              <img
-                src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=96&h=96&fit=crop&crop=faces"
-                alt="Chị Mai" class="w-12 h-12 rounded-full object-cover mr-4">
+              <img src="./img/review/n6.jpg" alt="Chị Mai"
+                class="w-12 h-12 rounded-full object-cover mr-4">
               <div>
                 <h4 class="font-semibold text-gray-900">Chị Mai</h4>
                 <p class="text-sm text-gray-600">Bình Tân</p>
@@ -1041,9 +1426,8 @@
               sáng thì chiều đã hoàn tất. Cách làm việc chuyên nghiệp, bảo mật tuyệt đối, tôi hoàn
               toàn hài lòng."</p>
             <div class="flex items-center">
-              <img
-                src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=96&h=96&fit=crop&crop=faces"
-                alt="Anh Dũng" class="w-12 h-12 rounded-full object-cover mr-4">
+              <img src="./img/review/n5.jpg" alt="Anh Dũng"
+                class="w-12 h-12 rounded-full object-cover mr-4">
               <div>
                 <h4 class="font-semibold text-gray-900">Anh Dũng</h4>
                 <p class="text-sm text-gray-600">Quận 3, TP.HCM</p>
@@ -1061,9 +1445,8 @@
             <p class="text-gray-700 mb-6 italic">"Tôi đánh giá cao sự nhiệt tình của nhân viên,
               hướng dẫn chi tiết từng bước. Chỉ mất ít phút là đã xử lý xong, rất thuận tiện."</p>
             <div class="flex items-center">
-              <img
-                src="https://images.unsplash.com/photo-1544005316-04ce98d1f16f?w=96&h=96&fit=crop&crop=faces"
-                alt="Chị Ngọc" class="w-12 h-12 rounded-full object-cover mr-4">
+              <img src="./img/review/n7.jpg" alt="Chị Ngọc"
+                class="w-12 h-12 rounded-full object-cover mr-4">
               <div>
                 <h4 class="font-semibold text-gray-900">Chị Ngọc</h4>
                 <p class="text-sm text-gray-600">Tân Phú</p>
@@ -1082,9 +1465,8 @@
               thì hoàn toàn thoải mái vì đã có Nam Phú Quý hỗ trợ kịp thời. Thật sự đáng tin cậy."
             </p>
             <div class="flex items-center">
-              <img
-                src="https://images.unsplash.com/photo-1546527868-ccb7ee7dfa6a?w=96&h=96&fit=crop&crop=faces"
-                alt="Anh Long" class="w-12 h-12 rounded-full object-cover mr-4">
+              <img src="./img/review/n8.png" alt="Anh Long"
+                class="w-12 h-12 rounded-full object-cover mr-4">
               <div>
                 <h4 class="font-semibold text-gray-900">Anh Long</h4>
                 <p class="text-sm text-gray-600">Bình Chánh</p>
@@ -1131,7 +1513,7 @@
       <div class="relative max-w-7xl mx-auto" data-aos="fade-up">
         <!-- Navigation Buttons - Outside carousel -->
         <button
-          class="carousel-btn carousel-btn-prev absolute -left-10 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white/90 hover:bg-white text-gray-800 rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 z-10"
+          class="btn-animated btn-ripple carousel-btn carousel-btn-prev absolute -left-10 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white/90 hover:bg-white text-gray-800 rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 z-10"
           id="prevBtn">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1139,7 +1521,7 @@
           </svg>
         </button>
         <button
-          class="carousel-btn carousel-btn-next absolute -right-10 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white/90 hover:bg-white text-gray-800 rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 z-10"
+          class="btn-animated btn-ripple carousel-btn carousel-btn-next absolute -right-10 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white/90 hover:bg-white text-gray-800 rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 z-10"
           id="nextBtn">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
@@ -1265,9 +1647,9 @@
 
         <!-- Contact Information - Split equally, no map -->
         <div class="space-y-8">
-          <div class="grid gap-8 lg:grid-cols-2">
+          <div class="grid gap-8 lg:grid-cols-5">
             <!-- Hồ Chí Minh -->
-            <div class="space-y-4" data-aos="fade-right" data-aos-delay="100">
+            <div class="space-y-4 col-span-2" data-aos="fade-right" data-aos-delay="100">
               <div class="flex items-start space-x-4">
                 <div
                   class="w-12 h-12 bg-luxe-soft-blue rounded-full flex items-center justify-center flex-shrink-0 icon-pulse">
@@ -1286,7 +1668,7 @@
             </div>
 
             <!-- Bình Dương -->
-            <div class="space-y-4" data-aos="fade-left" data-aos-delay="150">
+            <div class="space-y-4 col-span-3" data-aos="fade-left" data-aos-delay="150">
               <div class="flex items-start space-x-4">
                 <div
                   class="w-12 h-12 bg-luxe-soft-blue rounded-full flex items-center justify-center flex-shrink-0 icon-pulse">
@@ -1312,8 +1694,8 @@
               </div>
               <div>
                 <h4 class="font-semibold text-gray-900">Hotline</h4>
-                <p class="text-gray-600"><a href="tel:+84776244963"
-                    class="underline-slide">0776244963</a> &nbsp;|&nbsp; <a href="tel:+84776952201"
+                <p class="text-gray-600"><a href="tel:0776244963"
+                    class="underline-slide">0776244963</a> &nbsp;|&nbsp; <a href="tel:0776952201"
                     class="underline-slide">0776952201</a></p>
               </div>
             </div>
@@ -1361,10 +1743,10 @@
           để được hỗ trợ 24/7</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a href="#contact"
-            class="bg-white text-brand-dark px-8 py-4 rounded-full text-lg font-medium hover:bg-gray-100 transition-colors shadow elevate">Nhận
+            class="btn-animated btn-ripple btn-glow bg-white text-brand-dark px-8 py-4 rounded-full text-lg font-medium hover:bg-gray-100 transition-colors shadow elevate">Nhận
             tư vấn miễn phí</a>
           <a href="tel:+84776244963"
-            class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-white hover:text-brand-dark transition-colors elevate">Gọi
+            class="btn-animated btn-ripple btn-float border-2 border-white text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-white hover:text-brand-dark transition-colors elevate">Gọi
             0776 244 963</a>
         </div>
       </div>
@@ -1649,6 +2031,134 @@
     // Run on scroll and on load
     window.addEventListener('scroll', runCountersIfVisible);
     window.addEventListener('DOMContentLoaded', runCountersIfVisible);
+
+    // Step Animation Controller
+    function initStepAnimation() {
+      const stepContainers = document.querySelectorAll('.step-container');
+      const stepLines = document.querySelectorAll('.step-line, .step-line-vertical');
+      const stepNumbers = document.querySelectorAll('.step-number');
+
+      if (stepContainers.length === 0) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Animate step containers with staggered delay
+            stepContainers.forEach((container, index) => {
+              setTimeout(() => {
+                container.classList.add('animate-in');
+              }, index * 200);
+            });
+
+            // Animate connecting lines
+            setTimeout(() => {
+              stepLines.forEach((line) => {
+                line.classList.add('animate-line');
+              });
+            }, 800);
+
+            // Add pulse animation to step numbers
+            setTimeout(() => {
+              stepNumbers.forEach((number, index) => {
+                setTimeout(() => {
+                  number.classList.add('animate-pulse');
+                }, index * 300);
+              });
+            }, 1200);
+
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.3,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      // Observe the steps section
+      const stepsSection = document.querySelector('.steps');
+      if (stepsSection) {
+        observer.observe(stepsSection);
+      }
+    }
+
+    // Initialize step animation when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initStepAnimation);
+
+    // Button Animation Controller
+    function initButtonAnimations() {
+      // Add bounce animation to CTA buttons on load
+      const ctaButtons = document.querySelectorAll('a[href="#contact"]');
+      ctaButtons.forEach((button, index) => {
+        setTimeout(() => {
+          button.classList.add('btn-bounce');
+        }, index * 200);
+      });
+
+      // Magnetic effect for buttons
+      const magneticButtons = document.querySelectorAll('.btn-magnetic');
+      magneticButtons.forEach(button => {
+        button.addEventListener('mousemove', (e) => {
+          const rect = button.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+
+          button.style.setProperty('--mouse-x', `${x * 0.1}px`);
+          button.style.setProperty('--mouse-y', `${y * 0.1}px`);
+        });
+
+        button.addEventListener('mouseleave', () => {
+          button.style.setProperty('--mouse-x', '0px');
+          button.style.setProperty('--mouse-y', '0px');
+        });
+      });
+
+      // Ripple effect for buttons
+      const rippleButtons = document.querySelectorAll('.btn-ripple');
+      rippleButtons.forEach(button => {
+        button.addEventListener('click', function (e) {
+          const ripple = document.createElement('span');
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          const x = e.clientX - rect.left - size / 2;
+          const y = e.clientY - rect.top - size / 2;
+
+          ripple.style.width = ripple.style.height = size + 'px';
+          ripple.style.left = x + 'px';
+          ripple.style.top = y + 'px';
+          ripple.classList.add('ripple');
+
+          this.appendChild(ripple);
+
+          setTimeout(() => {
+            ripple.remove();
+          }, 600);
+        });
+      });
+
+      // Add pulse animation to important buttons
+      const pulseButtons = document.querySelectorAll('.btn-pulse');
+      pulseButtons.forEach(button => {
+        // Start pulse animation after a delay
+        setTimeout(() => {
+          button.classList.add('btn-pulse');
+        }, 1000);
+      });
+
+      // Add glow effect on hover
+      const glowButtons = document.querySelectorAll('.btn-glow');
+      glowButtons.forEach(button => {
+        button.addEventListener('mouseenter', () => {
+          button.style.boxShadow = '0 0 20px rgba(79, 70, 229, 0.5)';
+        });
+
+        button.addEventListener('mouseleave', () => {
+          button.style.boxShadow = '';
+        });
+      });
+    }
+
+    // Initialize button animations when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initButtonAnimations);
   </script>
 
   <!-- Back to Top Button -->
